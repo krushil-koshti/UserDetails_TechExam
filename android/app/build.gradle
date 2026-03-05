@@ -84,6 +84,9 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        ndk {
+            abiFilters 'arm64-v8a', 'x86_64'
+        }
     }
     signingConfigs {
         debug {
@@ -105,6 +108,19 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
+    }
+
+    // Redirect CMake intermediate build dir to a short path to avoid Windows 260-char limit
+    externalNativeBuild {
+        cmake {
+            buildStagingDirectory = file("C:\\.cxx")
+        }
+    }
+
 }
 
 dependencies {

@@ -19,6 +19,8 @@ const LoginContainer = () => {
             return Alert.alert('Error', 'Please enter valid email address');
         } else if (!password) {
             return Alert.alert('Error', 'Please enter your password');
+        } else if (password.length < 8) {
+            return Alert.alert('Error', 'Password must be at least 8 characters long');
         } else {
             // All validations passed
             navigation.navigate(screenNames.home);
