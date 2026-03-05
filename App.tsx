@@ -11,14 +11,19 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import MainRouter from './src/routers/mainRouter';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
+      <StatusBar
+        barStyle={'dark-content'}
+        translucent
+        backgroundColor="transparent"
+      />
+      <MainRouter />
     </SafeAreaProvider>
   );
 }
