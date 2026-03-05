@@ -37,12 +37,13 @@ const Login = ({
     return (
         <ScrollView
             contentContainerStyle={[
-                { paddingTop: insets.top + 100 },
+                { paddingTop: insets.top + 50 },
                 styles.mainContainer,
             ]}
             style={{ flex: 1, backgroundColor: '#FFFFFF' }}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
+            keyboardDismissMode='interactive'
         >
             <View style={styles.container}>
                 {/* Header */}
@@ -113,7 +114,7 @@ const Login = ({
                 {/* Footer */}
                 <View style={styles.footerContainer}>
                     <Text style={styles.footerText}>New here? </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.6} hitSlop={10}>
                         <Text style={styles.createAccountText}>Create an Account</Text>
                     </TouchableOpacity>
                 </View>

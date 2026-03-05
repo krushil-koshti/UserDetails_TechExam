@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Home from '../../component/Home';
-import { StatusBar, Text, View } from 'react-native';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { styles } from './styles';
 import { useUserStore } from '../../store/userStore';
-import { useFocusEffect } from '@react-navigation/native';
+import { screenNames } from '../../routers';
 
 interface PropsType {
     navigation: any;
@@ -17,17 +17,32 @@ const HomeContainer = (props: PropsType) => {
     function Header() {
         props.navigation.setOptions({
             header: () => (
-                <View
-                    style={[
-                        styles.headerContainer,
-                        { paddingTop: Insets.top + (StatusBar.currentHeight || 0) },
-                    ]}
-                >
-                    <Text style={styles.headerTitle}>Welcome! 👋</Text>
+                <View style={[styles.headerContainer, { paddingTop: Insets.top + 20 }]}>
+                    <View>
+                        <Text style={styles.headerTitle}>Welcome! 👋</Text>
 
-                    <Text style={styles.headerSubtitle}>
-                        Manage and explore user profiles easily
-                    </Text>
+                        <Text style={styles.headerSubtitle}>
+                            Manage and explore user profiles easily
+                        </Text>
+                    </View>
+                    <TouchableOpacity
+                        onPress={() => {
+                            Alert.alert('Logout', 'Are you sure want to logout?', [
+                                {
+                                    text: 'No',
+                                    style: 'default',
+                                },
+                                {
+                                    text: 'Yes',
+                                    onPress: () => {
+                                        props.navigation.navigate(screenNames.login);
+                                    },
+                                },
+                            ]);
+                        }}
+                    >
+                        <Text style={styles.headerTitle}>Log Out</Text>
+                    </TouchableOpacity>
                 </View>
             ),
         });
@@ -70,7 +85,9 @@ const HomeContainer = (props: PropsType) => {
                 setUsers((prev): any => {
                     if (isRefresh) return newUsers;
                     const existingIds = new Set(prev.map((u: any) => u.id));
-                    const filteredNew = newUsers.filter((u: any) => !existingIds.has(u.id));
+                    const filteredNew = newUsers.filter(
+                        (u: any) => !existingIds.has(u.id),
+                    );
                     return [...prev, ...filteredNew];
                 });
                 setPage(currentPage + 1);
@@ -105,12 +122,14 @@ const HomeContainer = (props: PropsType) => {
     const displayUsers = React.useMemo(() => {
         // Apply edits to existing users
         const apiUsersWithEdits = users.map((u: any) =>
-            editedUsers[u.id] ? { ...u, ...editedUsers[u.id] } : u
+            editedUsers[u.id] ? { ...u, ...editedUsers[u.id] } : u,
         );
 
         // Remove any added users that might eventually come from the API to prevent dupes
         const addedIds = new Set(addedUsers.map((u: any) => u.id));
-        const filteredApi = apiUsersWithEdits.filter((u: any) => !addedIds.has(u.id));
+        const filteredApi = apiUsersWithEdits.filter(
+            (u: any) => !addedIds.has(u.id),
+        );
 
         return [...addedUsers, ...filteredApi];
     }, [users, addedUsers, editedUsers]);

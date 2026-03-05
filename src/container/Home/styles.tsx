@@ -7,6 +7,8 @@ export const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         paddingBottom: 15,
         paddingHorizontal: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     headerTitle: {
         fontSize: 20,

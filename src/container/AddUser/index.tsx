@@ -7,12 +7,14 @@ import {
   View,
   Alert,
   Platform,
+  Image,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { styles } from './styles';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import { useUserStore } from '../../store/userStore';
+import { ImageConst } from '../../assets/images';
 
 const AddUserContainer = (props: any) => {
   const insets = useSafeAreaInsets();
@@ -24,7 +26,7 @@ const AddUserContainer = (props: any) => {
         <View
           style={[
             {
-              paddingTop: insets.top + (StatusBar.currentHeight || 0),
+              paddingTop: insets.top + 20,
             },
             styles.header,
           ]}
@@ -35,7 +37,7 @@ const AddUserContainer = (props: any) => {
             activeOpacity={0.6}
             hitSlop={10}
           >
-            <Text style={{ fontSize: 24, color: '#232B42' }}>←</Text>
+            <Image source={ImageConst.back} style={{ width: 24, height: 24 }} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>
             {isEdit ? 'Edit User' : 'Add New User'}

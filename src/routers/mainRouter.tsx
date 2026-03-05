@@ -25,7 +25,7 @@ const MainRouter = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName={screenNames.home}>
+            <Stack.Navigator>
                 {StackScreens(
                     screenNames.login,
                     screenContainerNames.LoginContainer,

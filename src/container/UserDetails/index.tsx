@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, Image } from 'react-native';
 import UserDetails from '../../component/UserDetails';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { styles } from './styles';
 import { useUserStore } from '../../store/userStore';
+import { ImageConst } from '../../assets/images';
 
 interface PropsType {
   navigation: any;
@@ -26,7 +27,7 @@ const UserDetailsContainer = (props: PropsType) => {
         <View
           style={[
             {
-              paddingTop: insets.top + (StatusBar.currentHeight || 0),
+              paddingTop: insets.top + 20,
             },
             styles.header,
             { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }
@@ -37,7 +38,7 @@ const UserDetailsContainer = (props: PropsType) => {
               onPress={() => props.navigation.goBack()}
               style={{ marginRight: 15, paddingVertical: 5, paddingRight: 10 }}
             >
-              <Text style={{ fontSize: 24, color: '#232B42' }}>←</Text>
+              <Image source={ImageConst.back} style={{ width: 24, height: 24 }} />
             </TouchableOpacity>
             <Text style={{ fontSize: 20, fontWeight: '700', color: '#232B42' }}>
               {currentUser?.firstName} {currentUser?.lastName}
